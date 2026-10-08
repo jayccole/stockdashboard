@@ -52,7 +52,7 @@ forbids inventing prices or news. Output is decision support, not financial advi
 1. **Webull API key:** at webull.com go to Account Center → OpenAPI Management and create
    an app key and secret.
 2. **Anthropic API key** (optional, for the advisor): create one at console.anthropic.com.
-3. In Coolify: **New Resource → Docker Compose**, pick this repository (`docker-compose.yml`).
+3. In Coolify: **New Resource → Docker Compose**, pick this repository (`docker-compose.yaml`).
 4. Fill in the environment variables Coolify lists (see `.env.example` for descriptions).
    At minimum: `POSTGRES_PASSWORD`, `WEBULL_APP_KEY`, `WEBULL_APP_SECRET`, `DASHBOARD_TOKEN`.
    Generate the token with `openssl rand -hex 24`.

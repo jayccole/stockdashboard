@@ -1,0 +1,9 @@
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+SQLAlchemy>=2.0,<3
+psycopg[binary]>=3.2,<4
+APScheduler>=3.10,<4
+anthropic>=0.40
+# Official Webull OpenAPI SDK (https://github.com/webull-inc/webull-openapi-python-sdk)
+webull-openapi-python-sdk>=3.0.2
+pytest>=8

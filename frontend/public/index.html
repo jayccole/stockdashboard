@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stock Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Stock Dashboard</h1>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="watchlist" aria-selected="true">Watchlist</button>
+      <button role="tab" data-tab="trades">Trades</button>
+      <button role="tab" data-tab="advisor">Advisor</button>
+      <button role="tab" data-tab="jobs">Data jobs</button>
+    </nav>
+    <div class="status">
+      <span id="as-of">No data yet</span>
+      <button id="refresh" class="btn">Refresh quotes</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="tab-watchlist" class="tab-panel">
+      <div class="layout">
+        <aside class="side">
+          <div class="panel" id="account"></div>
+          <div class="panel" id="advice-brief"></div>
+        </aside>
+        <div class="panel main-panel">
+          <div class="panel-head">
+            <h2>Watchlist</h2>
+            <select id="wl-filter" aria-label="Watchlist"></select>
+          </div>
+          <div class="table-wrap"><table class="grid" id="quotes"></table></div>
+        </div>
+      </div>
+      <div class="panel" id="detail" hidden></div>
+    </section>
+
+    <section id="tab-trades" class="tab-panel" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2>Your orders</h2>
+          <button class="btn" data-run="pull_orders">Pull order history</button></div>
+        <div class="table-wrap"><table class="grid" id="orders"></table></div>
+      </div>
+    </section>
+
+    <section id="tab-advisor" class="tab-panel" hidden>
+      <div class="panel" id="advice-full"></div>
+    </section>
+
+    <section id="tab-jobs" class="tab-panel" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2>Data jobs</h2>
+          <div class="btn-row">
+            <button class="btn" data-run="sync_watchlists">Sync watchlists</button>
+            <button class="btn" data-run="pull_daily_bars">Pull daily history</button>
+            <button class="btn" data-run="pull_account">Pull account</button>
+            <button class="btn primary" data-run="nightly">Run full nightly refresh</button>
+          </div></div>
+        <div class="table-wrap"><table class="grid" id="jobs"></table></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="login">
+    <form method="dialog">
+      <h2>Sign in</h2>
+      <p>Enter the dashboard token set as DASHBOARD_TOKEN on the server.</p>
+      <input id="token" type="password" autocomplete="current-password" required>
+      <button class="btn primary">Sign in</button>
+    </form>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

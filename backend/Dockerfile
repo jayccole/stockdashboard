@@ -4,11 +4,14 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
     WEBULL_OPENAPI_TOKEN_DIR=/data/webull-token
 
 WORKDIR /app
-COPY requirements.txt .
+# Build context is the repo root (see docker-compose.yaml)
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app ./app
-COPY tests ./tests
+COPY backend/app ./app
+COPY backend/tests ./tests
+# The dashboard page, served by the API at / (STATIC_DIR)
+COPY frontend/public ./static
 
 RUN useradd --create-home appuser && mkdir -p /data/webull-token && chown -R appuser /data
 USER appuser

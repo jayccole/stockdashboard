@@ -2,10 +2,13 @@
 from __future__ import annotations
 
 import hmac
+import os
 import threading
 from datetime import timedelta
+from pathlib import Path
 
 from fastapi import Depends, FastAPI, Header, HTTPException
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import desc, func, select
 from sqlalchemy.orm import Session
 
@@ -134,3 +137,11 @@ def run(name: str):
         raise HTTPException(404, f"Unknown job {name}")
     threading.Thread(target=target, daemon=True).start()
     return {"started": name}
+
+
+# Serve the dashboard itself from this service too, so the site works whichever
+# Coolify service the domain is attached to (api or web). Mounted last so every
+# /api route above takes precedence.
+_STATIC_DIR = Path(os.getenv("STATIC_DIR", "/app/static"))
+if _STATIC_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=_STATIC_DIR, html=True), name="dashboard")

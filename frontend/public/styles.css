@@ -156,3 +156,8 @@ dialog input { font: inherit; padding: 8px; border: 1px solid var(--rule); borde
   .status { margin-left: 0; width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
+
+.job-detail {
+  margin: 16px 0 0; padding: 12px; background: var(--bg); border: 1px solid var(--rule); border-radius: 8px;
+  font: 12.5px/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace; white-space: pre-wrap; word-break: break-word;
+}

@@ -179,7 +179,19 @@ def nightly() -> str:
     return " | ".join(results)
 
 
+def _check_webull() -> str:
+    from .diagnostics import check_webull
+    return check_webull()
+
+
+def _reset_webull_token() -> str:
+    from .diagnostics import reset_webull_token
+    return reset_webull_token()
+
+
 JOBS: dict[str, Callable[[], str]] = {
+    "check_webull": _check_webull,
+    "reset_webull_token": _reset_webull_token,
     "sync_watchlists": sync_watchlists,
     "pull_quotes": pull_quotes,
     "pull_daily_bars": pull_daily_bars,

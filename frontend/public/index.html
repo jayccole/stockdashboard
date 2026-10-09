@@ -58,12 +58,15 @@
       <div class="panel">
         <div class="panel-head"><h2>Data jobs</h2>
           <div class="btn-row">
+            <button class="btn" data-run="check_webull">Test Webull connection</button>
+            <button class="btn" data-run="reset_webull_token">Clear saved Webull login</button>
             <button class="btn" data-run="sync_watchlists">Sync watchlists</button>
             <button class="btn" data-run="pull_daily_bars">Pull daily history</button>
             <button class="btn" data-run="pull_account">Pull account</button>
             <button class="btn primary" data-run="nightly">Run full nightly refresh</button>
           </div></div>
         <div class="table-wrap"><table class="grid" id="jobs"></table></div>
+        <pre id="job-detail" class="job-detail" hidden></pre>
       </div>
     </section>
   </main>

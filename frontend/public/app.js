@@ -189,8 +189,9 @@ async function loadJobs() {
     { key: "started_at", label: "Started", render: (r) => when(r.started_at) },
     { key: "job", label: "Job" },
     { key: "status", label: "Result", render: (r) => `<span class="status-${r.status === "error" ? "error" : "ok"}">${esc(r.status)}</span>` },
-    { key: "detail", label: "Detail", render: (r) => `<span title="${esc(r.detail)}">${esc((r.detail || "").split("\n")[0]).slice(0, 90)}</span>` },
-  ], jobs, { sortKey: "started_at", empty: "No jobs have run yet." });
+    { key: "detail", label: "Detail (click a row for full text)", render: (r) => `<span title="${esc(r.detail)}">${esc((r.detail || "").split("\n")[0]).slice(0, 90)}</span>` },
+  ], jobs, { sortKey: "started_at", empty: "No jobs have run yet.",
+    onClick: (r) => { const pre = $("#job-detail"); pre.hidden = false; pre.textContent = `${r.job} · ${r.status} · ${when(r.started_at)}\n\n${r.detail || "(no detail)"}`; } });
 }
 
 function bindRun(root) {

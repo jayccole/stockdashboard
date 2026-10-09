@@ -6,6 +6,8 @@ exposes only query methods, so nothing elsewhere in the code can trade.
 from __future__ import annotations
 
 import logging
+import os
+import sys
 from datetime import datetime, timedelta, timezone
 from functools import cached_property
 
@@ -35,6 +37,14 @@ class Webull:
 
         self.api = ApiClient(settings.webull_app_key, settings.webull_app_secret,
                              settings.webull_region)
+        # The SDK writes webull_*_sdk.log files into the working directory unless a
+        # logger is already configured. The container's /app isn't writable (and logs
+        # belong on stdout, where Coolify shows them), so configure stdout logging first.
+        self.api.set_stream_logger(stream=sys.stdout, log_level=logging.INFO,
+                                   format_string="%(asctime)s %(name)s %(levelname)s %(message)s")
+        token_dir = os.getenv("WEBULL_OPENAPI_TOKEN_DIR")
+        if token_dir:
+            self.api.set_token_dir(token_dir)
         if settings.webull_endpoint:
             self.api.add_endpoint(settings.webull_region, settings.webull_endpoint)
 

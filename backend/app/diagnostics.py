@@ -31,7 +31,7 @@ def _shape(name: str, value: str) -> list[str]:
     if value != value.strip():
         lines.append(f"  PROBLEM: {name} has leading/trailing whitespace")
     v = value.strip()
-    if v[:1] in "\"'" or v[-1:] in "\"'":
+    if v and (v[0] in "\"'" or v[-1] in "\"'"):
         lines.append(f"  PROBLEM: {name} is wrapped in quote marks; remove them in Coolify")
     if "$" in value:
         lines.append(f"  NOTE: {name} contains '$'; tick 'Is Literal' on it in Coolify")
